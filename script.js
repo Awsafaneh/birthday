@@ -1,137 +1,178 @@
-// العناصر من الـ HTML
-const passwordSection = document.getElementById('password-section');
-const ageSection = document.getElementById('age-section');
-const greetingSection = document.getElementById('greeting-section');
+document.addEventListener('DOMContentLoaded', () => {
+    const passwordSection = document.getElementById('password-section');
+    const ageSection = document.getElementById('age-section');
+    const greetingSection = document.getElementById('greeting-section');
+    const container = document.querySelector('.container');
 
-const passwordInput = document.getElementById('password-input');
-const passwordError = document.getElementById('password-error');
+    const passwordInput = document.getElementById('password-input');
+    const passwordError = document.getElementById('password-error');
+    const passwordButton = passwordSection.querySelector('button'); // استهداف الزر بشكل أدق
 
-const ageInput = document.getElementById('age-input');
-const ageError = document.getElementById('age-error');
+    const ageInput = document.getElementById('age-input');
+    const ageError = document.getElementById('age-error');
+    const ageButton = ageSection.querySelector('button'); // استهداف الزر بشكل أدق
 
-const greetingTitle = document.getElementById('greeting-title');
-const greetingMessage = document.getElementById('greeting-message');
-const birthdateMessage = document.getElementById('birthdate-message');
+    const greetingTitle = document.getElementById('greeting-title');
+    const greetingMessage = document.getElementById('greeting-message');
+    const birthdateMessage = document.getElementById('birthdate-message');
 
-// كلمة المرور والعمر الصحيحين
-const CORRECT_PASSWORD = "1987";
-const CORRECT_AGE = 37;
-const MOTHER_NAME = "آلاء نوفل";
-const BIRTH_DATE = "9/5/1987";
+    const CORRECT_PASSWORD = "1987";
+    const CORRECT_AGE = 37;
+    const MOTHER_NAME = "آلاء نوفل";
+    const BIRTH_DATE = "9/5/1987";
 
-function showSection(sectionToShow) {
-    // إخفاء جميع الأقسام
-    passwordSection.classList.remove('active');
-    ageSection.classList.remove('active');
-    greetingSection.classList.remove('active');
-
-    // إظهار القسم المطلوب
-    sectionToShow.classList.add('active');
-}
-
-function checkPassword() {
-    const enteredPassword = passwordInput.value;
-    if (enteredPassword === CORRECT_PASSWORD) {
-        passwordError.textContent = "";
-        showSection(ageSection);
-    } else {
-        passwordError.textContent = "كلمة المرور غير صحيحة. حاولي مرة أخرى!";
-        passwordInput.value = ""; // مسح حقل الإدخال
-        triggerShake(passwordInput);
+    // تطبيق أنيميشن الدخول على الكونتينر
+    if (container) {
+        container.classList.add('container-enter');
     }
-}
 
-function checkAge() {
-    const enteredAge = parseInt(ageInput.value); // تحويل القيمة إلى رقم
-    if (enteredAge === CORRECT_AGE) {
-        ageError.textContent = "";
-        showGreeting();
-        showSection(greetingSection);
-    } else {
-        ageError.textContent = `ليس هذا هو عمري :) حاولي مرة أخرى!`;
-        ageInput.value = ""; // مسح حقل الإدخال
-        triggerShake(ageInput);
+    function showSection(sectionToShow) {
+        // إخفاء جميع الأقسام
+        [passwordSection, ageSection, greetingSection].forEach(section => {
+            if (section) section.classList.remove('active');
+        });
+
+        // إظهار القسم المطلوب
+        if (sectionToShow) {
+            sectionToShow.classList.add('active');
+        }
     }
-}
 
-function showGreeting() {
-    greetingTitle.textContent = `🎉 عيد ميلاد سعيد يا أغلى أم! 🎉`;
-    greetingMessage.textContent = `كل عام وأنتِ بألف ألف خير وصحة وسعادة يا ${MOTHER_NAME}. أتمنى لكِ يومًا رائعًا وسنة مليئة بالبهجة والحب وكل الأشياء الجميلة التي تستحقينها. أحبك جدًا!`;
-    birthdateMessage.textContent = `تاريخ الميلاد: ${BIRTH_DATE}`;
+    function triggerInputErrorAnimation(inputElement, errorMessageElement, message) {
+        if (errorMessageElement) errorMessageElement.textContent = message;
+        if (inputElement) {
+            inputElement.value = ""; // مسح الحقل
+            inputElement.classList.add('input-error-shake');
+            setTimeout(() => {
+                inputElement.classList.remove('input-error-shake');
+            }, 500);
+        }
+    }
 
-    // يمكنك إضافة المزيد من الأنيميشن أو التأثيرات هنا عند عرض التهنئة
-    startConfetti(); // مثال: بدء تأثير قصاصات الورق
-}
+    function checkPassword() {
+        console.log("checkPassword function called"); // للتأكد من استدعاء الدالة
+        const enteredPassword = passwordInput.value.trim();
+        if (enteredPassword === CORRECT_PASSWORD) {
+            if (passwordError) passwordError.textContent = "";
+            showSection(ageSection);
+        } else {
+            triggerInputErrorAnimation(passwordInput, passwordError, "كلمة المرور غير صحيحة. حاولي مرة أخرى!");
+        }
+    }
 
-function triggerShake(element) {
-    element.classList.add('shake-input');
-    setTimeout(() => {
-        element.classList.remove('shake-input');
-    }, 500);
-}
+    function checkAge() {
+        const enteredAge = parseInt(ageInput.value);
+        if (enteredAge === CORRECT_AGE) {
+            if (ageError) ageError.textContent = "";
+            showGreeting();
+            showSection(greetingSection);
+        } else {
+            triggerInputErrorAnimation(ageInput, ageError, `ليس هذا هو عمري :) حاولي مرة أخرى!`);
+        }
+    }
 
-// إضافة تأثير اهتزاز بسيط لحقول الإدخال عند الخطأ
-const styleSheet = document.createElement("style");
-styleSheet.type = "text/css";
-styleSheet.innerText = `
-.shake-input {
-    animation: shakeHorizontal 0.4s;
-}
-@keyframes shakeHorizontal {
-    0%, 100% { transform: translateX(0); }
-    25% { transform: translateX(-6px); }
-    75% { transform: translateX(6px); }
-}`;
-document.head.appendChild(styleSheet);
+    function showGreeting() {
+        if (greetingTitle) greetingTitle.textContent = `🎉 عيد ميلاد سعيد يا أغلى أم! 🎉`;
+        if (greetingMessage) greetingMessage.textContent = `كل عام وأنتِ بألف ألف خير وصحة وسعادة يا ${MOTHER_NAME}. أتمنى لكِ يومًا رائعًا وسنة مليئة بالبهجة والحب وكل الأشياء الجميلة التي تستحقينها. أحبك جدًا!`;
+        if (birthdateMessage) birthdateMessage.textContent = `تاريخ الميلاد: ${BIRTH_DATE}`;
+        startConfetti();
+    }
 
-
-// ----- بداية كود قصاصات الورق (Confetti) -----
-// يمكنك استخدام مكتبة جاهزة أو هذا الكود البسيط
-function startConfetti() {
-    const confettiContainer = document.querySelector('.container'); // أو body
-    const colors = ['#f6d365', '#fda085', '#e74c3c', '#2ecc71', '#3498db'];
-    for (let i = 0; i < 150; i++) { // عدد القصاصات
-        const confetti = document.createElement('div');
-        confetti.classList.add('confetti');
-        confetti.style.left = Math.random() * 100 + 'vw';
-        confetti.style.animationDuration = Math.random() * 3 + 2 + 's'; // مدة الأنيميشن
-        confetti.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
-        confetti.style.opacity = Math.random();
-        confetti.style.transform = `scale(${Math.random() * 0.5 + 0.5})`; // أحجام مختلفة
-        document.body.appendChild(confetti); // إضافة القصاصة إلى body مباشرة لتغطية الشاشة
-
-        // إزالة القصاصة بعد انتهاء الأنيميشن لتجنب تراكم العناصر
-        confetti.addEventListener('animationend', () => {
-            confetti.remove();
+    // ربط الأحداث بعد تحميل DOM
+    if (passwordButton) {
+        passwordButton.onclick = checkPassword;
+         // السماح بالإرسال عند الضغط على Enter في حقل كلمة المرور
+        passwordInput.addEventListener('keypress', function(event) {
+            if (event.key === 'Enter') {
+                event.preventDefault(); // منع السلوك الافتراضي لـ Enter
+                checkPassword();
+            }
         });
     }
-}
-
-// إضافة الـ CSS الخاص بالـ confetti
-const confettiCSS = `
-.confetti {
-    position: fixed; /* لتغطية الشاشة بالكامل */
-    top: -10px; /* تبدأ من خارج الشاشة قليلاً */
-    width: 10px;
-    height: 10px;
-    border-radius: 50%;
-    animation: fall linear infinite;
-    z-index: 9999; /* فوق كل شيء */
-}
-
-@keyframes fall {
-    to {
-        transform: translateY(105vh) rotate(720deg); /* سقوط مع دوران */
-        opacity: 0;
+    if (ageButton) {
+        ageButton.onclick = checkAge;
+        // السماح بالإرسال عند الضغط على Enter في حقل العمر
+        ageInput.addEventListener('keypress', function(event) {
+            if (event.key === 'Enter') {
+                event.preventDefault();
+                checkAge();
+            }
+        });
     }
-}
-`;
-const confettiStyleSheet = document.createElement("style");
-confettiStyleSheet.type = "text/css";
-confettiStyleSheet.innerText = confettiCSS;
-document.head.appendChild(confettiStyleSheet);
-// ----- نهاية كود قصاصات الورق (Confetti) -----
 
 
-// إظهار قسم كلمة المرور عند تحميل الصفحة
-showSection(passwordSection);
+    // إضافة CSS للأنيميشن الخاص بالخطأ في الإدخال
+    const dynamicStyles = `
+    .input-error-shake {
+        animation: horizontal-shake 0.4s cubic-bezier(.36,.07,.19,.97) both;
+        border-color: #e74c3c !important; /* لضمان ظهور لون الخطأ */
+    }
+    @keyframes horizontal-shake {
+        10%, 90% { transform: translateX(-1px); }
+        20%, 80% { transform: translateX(2px); }
+        30%, 50%, 70% { transform: translateX(-4px); }
+        40%, 60% { transform: translateX(4px); }
+    }
+    `;
+    const styleSheet = document.createElement("style");
+    styleSheet.type = "text/css";
+    styleSheet.innerText = dynamicStyles;
+    document.head.appendChild(styleSheet);
+
+
+    // ----- بداية كود قصاصات الورق (Confetti) المحدث -----
+    function startConfetti() {
+        const colors = ['#667eea', '#764ba2', '#f7cac9', '#92a8d1', '#fbc2eb']; // ألوان متناسقة
+        const confettiCount = 100; // تقليل العدد قليلاً لأداء أفضل
+        const confettiContainer = document.body; // استخدام body مباشرة
+
+        for (let i = 0; i < confettiCount; i++) {
+            const confetti = document.createElement('div');
+            confetti.classList.add('confetti-piece'); // اسم كلاس جديد لتجنب التعارض
+            confetti.style.left = Math.random() * 100 + 'vw';
+            confetti.style.animationDelay = Math.random() * 1 + 's'; // تأخير عشوائي بسيط
+            confetti.style.animationDuration = Math.random() * 2 + 3 + 's';
+            confetti.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
+            confetti.style.opacity = Math.random() * 0.7 + 0.3; // ضمان أن القصاصات مرئية
+            confetti.style.transform = `scale(${Math.random() * 0.8 + 0.5}) rotate(${Math.random() * 360}deg)`; // دوران وحجم عشوائي أولي
+
+            confettiContainer.appendChild(confetti);
+
+            confetti.addEventListener('animationend', () => {
+                confetti.remove();
+            });
+        }
+    }
+
+    const confettiCSS = `
+    .confetti-piece {
+        position: fixed;
+        top: -20px;
+        width: 10px; /* حجم متناسق */
+        height: 10px;
+        border-radius: 50%; /* دوائر */
+        animation-name: fallConfetti;
+        animation-timing-function: linear;
+        animation-iteration-count: infinite;
+        z-index: 10000;
+    }
+
+    @keyframes fallConfetti {
+        0% {
+            transform: translateY(-20px) rotateZ(0deg);
+        }
+        100% {
+            transform: translateY(105vh) rotateZ(720deg);
+            opacity: 0;
+        }
+    }
+    `;
+    const confettiStyleSheet = document.createElement("style");
+    confettiStyleSheet.type = "text/css";
+    confettiStyleSheet.innerText = confettiCSS;
+    document.head.appendChild(confettiStyleSheet);
+    // ----- نهاية كود قصاصات الورق (Confetti) -----
+
+    // إظهار قسم كلمة المرور عند تحميل الصفحة
+    showSection(passwordSection);
+});
