@@ -1,42 +1,171 @@
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>هدية خاصة جداً ❤️</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700&family=Lateef&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="style.css">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>هدية خاصة</title>
+  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@500;700&display=swap" rel="stylesheet">
+  <style>
+    body {
+      background: linear-gradient(135deg, #ffe6f0, #ffffff);
+      font-family: 'Cairo', sans-serif;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+      height: 100vh;
+      margin: 0;
+      overflow: hidden;
+    }
+
+    .gift-button {
+      background-color: #ff4081;
+      color: white;
+      padding: 15px 35px;
+      border: none;
+      border-radius: 12px;
+      font-size: 1.3rem;
+      cursor: pointer;
+      transition: 0.3s ease;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+    }
+
+    .gift-button:hover {
+      background-color: #e73370;
+      transform: scale(1.05);
+    }
+
+    #password-section, #message-box {
+      display: none;
+      margin-top: 25px;
+      text-align: center;
+    }
+
+    input[type="password"] {
+      padding: 12px;
+      font-size: 1rem;
+      border: 2px solid #ddd;
+      border-radius: 10px;
+      outline: none;
+      width: 200px;
+      text-align: center;
+    }
+
+    .box {
+      width: 200px;
+      height: 200px;
+      background: url('https://i.imgur.com/w1URjVP.png') no-repeat center center;
+      background-size: cover;
+      margin: 25px auto;
+      animation: pop 1s ease-out forwards;
+    }
+
+    @keyframes pop {
+      0% { transform: scale(0); opacity: 0; }
+      100% { transform: scale(1); opacity: 1; }
+    }
+
+    .message {
+      font-size: 1.7rem;
+      color: #d6336c;
+      margin-top: 20px;
+      line-height: 1.6;
+    }
+
+    .hearts {
+      position: fixed;
+      top: 0;
+      left: 0;
+      pointer-events: none;
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
+      z-index: 0;
+    }
+
+    .heart {
+      position: absolute;
+      width: 20px;
+      height: 20px;
+      background: red;
+      transform: rotate(45deg);
+      animation: floatHearts 5s linear infinite;
+    }
+
+    .heart::before, .heart::after {
+      content: "";
+      position: absolute;
+      width: 20px;
+      height: 20px;
+      background: red;
+      border-radius: 50%;
+    }
+
+    .heart::before {
+      top: -10px;
+      left: 0;
+    }
+
+    .heart::after {
+      left: -10px;
+      top: 0;
+    }
+
+    @keyframes floatHearts {
+      0% {
+        transform: translateY(0) rotate(45deg);
+        opacity: 1;
+      }
+      100% {
+        transform: translateY(-800px) rotate(45deg);
+        opacity: 0;
+      }
+    }
+  </style>
 </head>
 <body>
+  <button class="gift-button" onclick="showPassword()">🎁 اضغط هنا لفتح الهدية</button>
 
-    <div class="container">
-        <button class="cta-button" id="open-gift-button">
-            اضغط هنا لفتح الهدية السحرية ✨
-        </button>
+  <div id="password-section">
+    <input type="password" id="password" placeholder="أدخل كلمة السر">
+    <br><br>
+    <button class="gift-button" onclick="checkPassword()">تأكيد</button>
+  </div>
 
-        <div id="password-section" class="section hidden">
-            <h2>هيا بنا! أدخلي كلمة السر لفتح الباب 🔐</h2>
-            <input type="password" id="password-input" placeholder="كلمة السر هنا...">
-            <button class="cta-button" onclick="checkPassword()">تأكيد</button>
-            <p id="password-error" class="error-message"></p>
-        </div>
+  <div id="message-box">
+    <div class="box"></div>
+    <div class="message">🎉 كل عام وأنتِ بخير يا أمي الغالية ❤️<br>Alaa Nofal 🎂 9/5/1987</div>
+  </div>
 
-        <div id="message-box" class="section hidden">
-            <div class="gift-box-graphic"></div> <div class="message">
-                <p class="main-message">كل عام وأنتِ بألف ألف خير يا أمي الغالية ❤️</p>
-                <p class="details">
-                    أجمل "الاء نوفل" في الوجود 💖<br>
-                    عيد ميلاد سعيد 🎂 9/5/1987
-                </p>
-                 <button class="cta-button share-button">مشاركة الفرحة ✨</button>
-            </div>
-        </div>
-    </div>
+  <div class="hearts" id="hearts"></div>
 
-     <div class="hearts-container" id="hearts-container"></div>
+  <script>
+    function showPassword() {
+      document.getElementById('password-section').style.display = 'block';
+    }
 
-    <script src="script.js"></script>
+    function checkPassword() {
+      const password = document.getElementById('password').value;
+      if (password === '1987') {
+        document.getElementById('message-box').style.display = 'block';
+        document.getElementById('password-section').style.display = 'none';
+        startHearts();
+      } else {
+        alert('❌ كلمة السر غير صحيحة، حاول مرة أخرى.');
+      }
+    }
+
+    function startHearts() {
+      const hearts = document.getElementById('hearts');
+      for (let i = 0; i < 40; i++) {
+        let heart = document.createElement('div');
+        heart.classList.add('heart');
+        heart.style.left = Math.random() * 100 + "vw";
+        heart.style.animationDuration = (Math.random() * 3 + 2) + "s";
+        hearts.appendChild(heart);
+        setTimeout(() => heart.remove(), 5000);
+      }
+    }
+  </script>
 </body>
 </html>
