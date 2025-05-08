@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>هدية خاصة جداً ❤️</title>
+    <title>رسالة خاصة جداً</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700&family=Lateef&display=swap" rel="stylesheet">
@@ -11,30 +11,45 @@
 </head>
 <body>
 
-    <div class="container">
-        <button class="cta-button" id="open-gift-button">
-            اضغط هنا لفتح الهدية السحرية ✨
-        </button>
+    <div class="background-effect"></div> <div class="container">
+        <div id="intro-screen" class="section">
+            <h1>هناك شيء مميز بانتظارك...</h1>
+            <p>هل أنتِ مستعدة لخوض تحدٍ صغير للكشف عن رسالة مخفية؟</p>
+            <button class="cta-button" data-target="password-section">ابدئي التحدي الآن</button>
+        </div>
 
         <div id="password-section" class="section hidden">
-            <h2>هيا بنا! أدخلي كلمة السر لفتح الباب 🔐</h2>
-            <input type="password" id="password-input" placeholder="كلمة السر هنا...">
-            <button class="cta-button" onclick="checkPassword()">تأكيد</button>
+            <h2>الخطوة ١: أدخلي المفتاح السري 🔑</h2>
+            <p>بدون المفتاح الصحيح، لن تتمكني من التقدم.</p>
+            <input type="password" id="password-input" placeholder="المفتاح هنا...">
+            <button class="cta-button" onclick="checkPassword()">فك القفل</button>
             <p id="password-error" class="error-message"></p>
         </div>
 
-        <div id="message-box" class="section hidden">
-            <div class="gift-box-graphic"></div> <div class="message">
-                <p class="main-message">كل عام وأنتِ بألف ألف خير يا أمي الغالية ❤️</p>
-                <p class="details">
-                    أجمل "الاء نوفل" في الوجود 💖<br>
-                    عيد ميلاد سعيد 🎂 9/5/1987
-                </p>
-                 </div>
+        <div id="age-section" class="section hidden">
+            <h2>الخطوة ٢: ما هو الرقم السحري؟ 🤔</h2>
+            <p>هناك رقم خاص مرتبط بالرسالة... هل تعرفينه؟</p>
+            <input type="number" id="age-input" placeholder="الرقم السحري...">
+            <button class="cta-button" onclick="checkAge()">كشف الرقم</button>
+            <p id="age-error" class="error-message"></p>
+        </div>
+
+        <div id="message-section" class="section hidden">
+            <div class="celebration-animation"></div> <h2>✨ لقد نجحتِ! هذه رسالتكِ ✨</h2>
+            <p class="final-message-text">
+                يا أجمل وأغلى أم في الدنيا، "الاء نوفل" ❤️<br><br>
+                اليوم هو يوم مميز جداً، يوم يحتفل بقدومكِ إلى عالمنا.<br>
+                كل عام وأنتِ منبع الحنان والسعادة والنور في حياتنا.<br>
+                شكراً لكل ابتسامة، لكل دعاء، لكل لحظة قضيتيها من أجلنا.<br><br>
+                **عيد ميلاد سعيد يا أمي الغالية! 🎂**<br>
+                تاريخ مميز: ٩ / ٥ / ١٩٨٧
+            </p>
+            <p class="signature">مع كل الحب والامتنان من أبنائك</p>
         </div>
     </div>
 
-     <div class="hearts-container" id="hearts-container"></div>
+     <div class="overlay-effects" id="overlay-effects"></div>
+
 
     <script src="script.js"></script>
 </body>
