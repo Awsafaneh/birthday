@@ -72,7 +72,7 @@ p {
     margin-top: -15px;
     margin-bottom: 20px;
     font-weight: bold;
-    min-height: 1.2rem; /* حجز مساحة */
+    min-height: 1.2rem; /* حجز مساحة لتجنب تغيير تصميم الصفحة */
     opacity: 0; /* إخفاء مبدئي بالشفافية */
     transition: opacity 0.4s ease-in-out; /* انتقال لظهور رسالة الخطأ */
 }
@@ -194,8 +194,8 @@ input[type="number"]:focus {
 
 .heart {
     position: absolute;
-    width: 20px;
-    height: 20px;
+    width: var(--pseudo-element-size, 20px); /* استخدام متغير للحجم */
+    height: var(--pseudo-element-size, 20px); /* استخدام متغير للحجم */
     background-color: #ff6b6b; /* لون القلوب */
     transform: rotate(45deg);
     animation: floatHearts 5s linear infinite;
@@ -206,21 +206,22 @@ input[type="number"]:focus {
 .heart::before, .heart::after {
     content: "";
     position: absolute;
-    width: 20px;
-    height: 20px;
+     width: var(--pseudo-element-size, 20px); /* استخدام متغير للحجم */
+    height: var(--pseudo-element-size, 20px); /* استخدام متغير للحجم */
     background-color: #ff6b6b;
     border-radius: 50%;
 }
 
 .heart::before {
-    top: -10px;
+    top: calc(var(--pseudo-element-half-size, 10px) * -1); /* استخدام متغير لنصف الحجم */
     left: 0;
 }
 
 .heart::after {
-    left: -10px;
+    left: calc(var(--pseudo-element-half-size, 10px) * -1); /* استخدام متغير لنصف الحجم */
     top: 0;
 }
+
 
 @keyframes floatHearts {
     0% {
@@ -238,6 +239,9 @@ input[type="number"]:focus {
 
 /* تنسيق للشاشات الصغيرة */
 @media (max-width: 600px) {
+     body {
+        padding: 10px;
+    }
     .container {
         padding: 25px;
         border-radius: 15px;
