@@ -1,50 +1,168 @@
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>عيد ميلاد سعيد يا أغلى أم</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="style.css">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>هدية خاصة</title>
+  <style>
+    body {
+      background: linear-gradient(to right, #ffe6e6, #fff);
+      font-family: 'Cairo', sans-serif;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+      height: 100vh;
+      margin: 0;
+      overflow: hidden;
+    }
+
+    .gift-button {
+      background-color: #ff6699;
+      color: white;
+      padding: 15px 30px;
+      border: none;
+      border-radius: 10px;
+      font-size: 1.2rem;
+      cursor: pointer;
+      transition: 0.3s;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+    }
+
+    .gift-button:hover {
+      background-color: #e05585;
+      transform: scale(1.05);
+    }
+
+    #password-section, #message-box {
+      display: none;
+      margin-top: 20px;
+    }
+
+    input[type="password"] {
+      padding: 10px;
+      font-size: 1rem;
+      border: 2px solid #ccc;
+      border-radius: 8px;
+      margin: 10px;
+    }
+
+    .box {
+      width: 200px;
+      height: 200px;
+      background: url('https://i.imgur.com/w1URjVP.png') no-repeat center center;
+      background-size: cover;
+      margin: 20px auto;
+      animation: pop 1s ease-out forwards;
+    }
+
+    @keyframes pop {
+      0% { transform: scale(0); }
+      100% { transform: scale(1); }
+    }
+
+    .message {
+      font-size: 1.5rem;
+      color: #d6336c;
+      text-align: center;
+      margin-top: 15px;
+    }
+
+    .hearts {
+      position: fixed;
+      top: 0;
+      left: 0;
+      pointer-events: none;
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
+      z-index: 0;
+    }
+
+    .heart {
+      position: absolute;
+      width: 20px;
+      height: 20px;
+      background: red;
+      transform: rotate(45deg);
+      animation: floatHearts 5s linear infinite;
+    }
+
+    .heart::before, .heart::after {
+      content: "";
+      position: absolute;
+      width: 20px;
+      height: 20px;
+      background: red;
+      border-radius: 50%;
+    }
+
+    .heart::before {
+      top: -10px;
+      left: 0;
+    }
+
+    .heart::after {
+      left: -10px;
+      top: 0;
+    }
+
+    @keyframes floatHearts {
+      0% {
+        transform: translateY(0) rotate(45deg);
+        opacity: 1;
+      }
+      100% {
+        transform: translateY(-800px) rotate(45deg);
+        opacity: 0;
+      }
+    }
+  </style>
 </head>
 <body>
-    <div class="container">
-        <div id="intro-screen" class="section">
-            <h1>مفاجأة عيد ميلاد لأروع أم في العالم!</h1>
-            <p>هذه رحلة صغيرة تكريماً ليومك المميز يا أمي.</p>
-            <button onclick="startJourney()">ابدئي الرحلة</button>
-        </div>
+  <button class="gift-button" onclick="showPassword()">اضغط هنا لفتح الهدية 🎁</button>
 
-        <div id="password-section" class="section hidden">
-            <h2>الخطوة الأولى: مفتاح الدخول</h2>
-            <p>أدخلي كلمة السر الخاصة التي تعرفينها جيداً:</p>
-            <input type="password" id="password-input" placeholder="أدخلي كلمة السر هنا">
-            <button onclick="checkPassword()">دخول</button>
-            <p id="password-error" class="error-message"></p>
-        </div>
+  <div id="password-section">
+    <input type="password" id="password" placeholder="ادخل كلمة السر">
+    <button class="gift-button" onclick="checkPassword()">تأكيد</button>
+  </div>
 
-        <div id="age-section" class="section hidden">
-            <h2>الخطوة الثانية: سؤال عن العمر</h2>
-            <p>كم أصبح عمر السيدة "الاء نوفل" الرائعة اليوم؟</p>
-            <input type="number" id="age-input" placeholder="أدخلي العمر هنا">
-            <button onclick="checkAge()">تحقق</button>
-            <p id="age-error" class="error-message"></p>
-        </div>
+  <div id="message-box">
+    <div class="box"></div>
+    <div class="message">🎉 كل عام وأنتِ بخير يا أمي الغالية ❤️<br>Alaa Nofal 🎂 9/5/1987</div>
+  </div>
 
-        <div id="message-section" class="section hidden">
-             <img src="gift-box.png" alt="صندوق هدية" class="birthday-image"> <h2>يا أجمل "الاء نوفل" في الوجود!</h2>
-            <p class="birthday-message">
-                كل عام وأنتِ بألف ألف خير يا أمي الغالية.<br>
-                عيد ميلاد سعيد وسنوات قادمة مليئة بالفرح والسعادة والبركات.<br>
-                شكراً لوجودك في حياتنا، أنتِ النور والدفء والأمان.<br>
-                نحبك أكثر مما تتصور الكلمات!
-            </p>
-            <p>مع كل الحب من أبنائك</p>
-        </div>
-    </div>
+  <div class="hearts" id="hearts"></div>
 
-    <script src="script.js"></script>
+  <script>
+    function showPassword() {
+      document.getElementById('password-section').style.display = 'block';
+    }
+
+    function checkPassword() {
+      const password = document.getElementById('password').value;
+      if (password === '1987') {
+        document.getElementById('message-box').style.display = 'block';
+        document.getElementById('password-section').style.display = 'none';
+        startHearts();
+        // Optional: play sound
+        // new Audio('your-sound-file.mp3').play();
+      } else {
+        alert('كلمة السر غير صحيحة! جرب مرة أخرى.');
+      }
+    }
+
+    function startHearts() {
+      const hearts = document.getElementById('hearts');
+      for (let i = 0; i < 30; i++) {
+        let heart = document.createElement('div');
+        heart.classList.add('heart');
+        heart.style.left = Math.random() * 100 + "vw";
+        heart.style.animationDuration = (Math.random() * 3 + 2) + "s";
+        hearts.appendChild(heart);
+        setTimeout(() => heart.remove(), 5000);
+      }
+    }
+  </script>
 </body>
 </html>
