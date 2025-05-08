@@ -60,8 +60,8 @@ function showMessageBox() {
 
 // دالة بدء تأثير القلوب
 function startHearts() {
-    const numberOfHearts = 50; // عدد القلوب المطلوب
-    const duration = 6000; // مدة أنيميشن القلب الواحد بالمللي ثانية (6 ثواني)
+    const numberOfHearts = 60; // زيادة عدد القلوب
+    const duration = 7000; // زيادة مدة أنيميشن القلب الواحد بالمللي ثانية (7 ثواني)
 
     for (let i = 0; i < numberOfHearts; i++) {
         let heart = document.createElement('div');
@@ -70,19 +70,16 @@ function startHearts() {
         // تحديد موقع عشوائي أفقي
         heart.style.left = Math.random() * 100 + "vw";
         // تحديد حجم عشوائي بسيط
-        const size = Math.random() * 15 + 15; // حجم بين 15 و 30 بكسل
-        heart.style.width = size + "px";
-        heart.style.height = size + "px";
-        heart.style.backgroundColor = `hsl(${Math.random() * 30 + 330}, 70%, 70%)`; // ألوان وردي/أحمر متنوعة قليلاً
-
-        // تعديل مواضع before/after بناءً على الحجم الجديد
-         heart.style.setProperty('--pseudo-element-size', `${size}px`);
-         heart.style.setProperty('--pseudo-element-half-size', `${size / 2}px`);
+        const size = Math.random() * 15 + 20; // حجم بين 20 و 35 بكسل
+        heart.style.setProperty('--pseudo-element-size', `${size}px`);
+        heart.style.setProperty('--pseudo-element-half-size', `${size / 2}px`);
 
 
         // تحديد مدة أنيميشن عشوائية وتأخير بسيط للبدء
-        heart.style.animationDuration = (Math.random() * 4 + 4) + "s"; // مدة بين 4 و 8 ثواني
-        heart.style.animationDelay = (Math.random() * 3) + "s"; // تأخير بدء بين 0 و 3 ثواني
+        heart.style.animationDuration = (Math.random() * 5 + 5) + "s"; // مدة بين 5 و 10 ثواني
+        heart.style.animationDelay = (Math.random() * 4) + "s"; // تأخير بدء بين 0 و 4 ثواني
+         // تحديد نقطة بداية عمودية عشوائية قليلاً أسفل الشاشة
+        heart.style.bottom = `${Math.random() * 50 - 50}px`; // بين -50 و 0 بكسل
 
         heartsContainer.appendChild(heart);
 
@@ -91,8 +88,9 @@ function startHearts() {
             heart.remove();
         });
     }
-     // استدعاء الدالة مرة أخرى لإنشاء دفعة جديدة من القلوب بعد فترة
-     setTimeout(startHearts, numberOfHearts * duration / (numberOfHearts/4) ); // تطلق دفعة جديدة قبل انتهاء كل القلوب
+     // استدعاء الدالة مرة أخرى لإنشاء دفعة جديدة من القلوب بعد فترة لتأثير مستمر
+     // يتم تحديد الوقت لتبدأ الدفعة التالية قبل اختفاء كل القلوب من الدفعة الحالية
+     setTimeout(startHearts, duration / 3);
 }
 
 
