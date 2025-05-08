@@ -1,113 +1,116 @@
-// دالة مساعدة لإظهار قسم معين بانتقال سلس
-function showSection(sectionId) {
-    // إخفاء جميع الأقسام أولاً بانتقال
-    const sections = document.querySelectorAll('.section');
-    sections.forEach(section => {
-        if (!section.classList.contains('hidden')) {
-             // أضف الكلاس 'hidden' لإخفاء القسم بانتقال
-             section.classList.add('hidden');
+// الحصول على العناصر الأساسية
+const openGiftButton = document.getElementById('open-gift-button');
+const passwordSection = document.getElementById('password-section');
+const passwordInput = document.getElementById('password-input');
+const passwordError = document.getElementById('password-error');
+const messageBox = document.getElementById('message-box');
+const heartsContainer = document.getElementById('hearts-container');
 
-             // اختياري: إذا كان القسم المختفي يحتوي على رسالة خطأ مرئية، قم بإخفائها
-             const errorElement = section.querySelector('.error-message');
-             if (errorElement && errorElement.classList.contains('visible')) {
-                 errorElement.classList.remove('visible');
-             }
-        }
-    });
+// كلمة السر الصحيحة
+const correctPassword = '1987';
 
-    // البحث عن القسم المستهدف
-    const targetSection = document.getElementById(sectionId);
-
-     // إضافة تأخير بسيط للسماح للقسم السابق بالاختفاء قبل إظهار الجديد
-    // مدة التأخير يجب أن تكون مساوية أو أكبر قليلاً من مدة الانتقال في CSS
-    const transitionDuration = 700; // ملّي ثانية (توافق مع transition: opacity 0.7s)
-    setTimeout(() => {
-        // قم بإزالة الكلاس 'hidden' لإظهار القسم بانتقال
-        targetSection.classList.remove('hidden');
-
-        // اختياري: التركيز على حقل الإدخال إذا كان موجوداً في القسم الجديد
-        const inputElement = targetSection.querySelector('input');
-        if (inputElement) {
-            inputElement.focus();
-        }
-
-    }, transitionDuration);
+// دالة إظهار رسالة خطأ
+function showErrorMessage(element, message) {
+    element.textContent = message;
+    element.classList.add('visible'); // استخدم كلاس لإظهارها بالشفافية
 }
 
-// دالة مساعدة لإظهار رسالة خطأ
-function showErrorMessage(errorElementId, message) {
-    const errorElement = document.getElementById(errorElementId);
-    errorElement.textContent = message;
-    // استخدم الكلاس 'visible' لإظهار الرسالة بانتقال الشفافية
-    errorElement.classList.add('visible');
+// دالة إخفاء رسالة خطأ
+function hideErrorMessage(element) {
+    element.classList.remove('visible'); // إخفاء بالشفافية
+    // يمكن مسح النص بعد انتهاء الانتقال إذا لزم الأمر
+    setTimeout(() => { element.textContent = ''; }, 400); // 400ms هي مدة الانتقال في CSS
 }
 
-// دالة مساعدة لإخفاء رسالة خطأ
-function hideErrorMessage(errorElementId) {
-    const errorElement = document.getElementById(errorElementId);
-     // قم بإزالة الكلاس 'visible' لإخفاء الرسالة بانتقال الشفافية
-    errorElement.classList.remove('visible');
-    // يمكنك مسح النص بعد انتهاء الانتقال إذا أردت:
-    // setTimeout(() => { errorElement.textContent = ''; }, 300); // مدة الانتقال في CSS للأخطاء
+// دالة إظهار قسم كلمة السر
+function showPasswordSection() {
+    openGiftButton.style.display = 'none'; // إخفاء زر الفتح
+    passwordSection.classList.remove('hidden'); // إظهار قسم كلمة السر
+    passwordInput.focus(); // تركيز المؤشر على حقل الإدخال
 }
 
-
-// الدالة التي تبدأ الرحلة عند الضغط على الزر الأولي
-function startJourney() {
-    showSection('password-section');
-}
-
-// الدالة للتحقق من كلمة السر
+// دالة التحقق من كلمة السر
 function checkPassword() {
-    const correctPassword = '1987'; // كلمة السر الصحيحة
-    const passwordInput = document.getElementById('password-input');
-    const passwordValue = passwordInput.value.trim(); // إزالة المسافات البيضاء
+    const passwordValue = passwordInput.value.trim();
 
     if (passwordValue === '') {
-         showErrorMessage('password-error', 'الرجاء إدخال كلمة السر.');
-         passwordInput.value = '';
-         return; // توقف الدالة هنا إذا كان الحقل فارغاً
+        showErrorMessage(passwordError, 'الرجاء إدخال كلمة السر.');
+        passwordInput.focus();
+        return;
     }
 
     if (passwordValue === correctPassword) {
-        // كلمة السر صحيحة: أظهِر قسم العمر
-        hideErrorMessage('password-error'); // إخفاء رسالة الخطأ إذا كانت ظاهرة
-        showSection('age-section');
-        passwordInput.value = ''; // مسح حقل كلمة السر لأسباب أمنية وجمالية
+        hideErrorMessage(passwordError); // إخفاء رسالة الخطأ إذا كانت ظاهرة
+        passwordSection.classList.add('hidden'); // إخفاء قسم كلمة السر
+        showMessageBox(); // إظهار صندوق الهدية والرسالة
+        startHearts(); // بدء تأثير القلوب
+        passwordInput.value = ''; // مسح كلمة السر
     } else {
-        // كلمة السر خاطئة: أظهِر رسالة الخطأ
-        showErrorMessage('password-error', 'كلمة السر خاطئة. يرجى المحاولة مرة أخرى.');
-        passwordInput.value = ''; // مسح الحقل ليحاول المستخدم مرة أخرى
+        showErrorMessage(passwordError, 'كلمة السر غير صحيحة. حاولي مرة أخرى يا أمي ❤️');
+        passwordInput.value = ''; // مسح الحقل للمحاولة مجدداً
+        passwordInput.focus();
     }
 }
 
-// الدالة للتحقق من العمر
-function checkAge() {
-    const correctAge = '37'; // العمر الصحيح (تم وضعه ك string للمقارنة المباشرة)
-    const ageInput = document.getElementById('age-input');
-    const ageValue = ageInput.value.trim(); // إزالة المسافات البيضاء
-
-     if (ageValue === '') {
-         showErrorMessage('age-error', 'الرجاء إدخال العمر.');
-         ageInput.value = '';
-         return; // توقف الدالة هنا إذا كان الحقل فارغاً
-    }
-
-    // قيمة حقل الإدخال تكون عادةً سلسلة نصية (string) حتى لو كان نوعه number
-    if (ageValue === correctAge) {
-        // العمر صحيح: أظهِر رسالة التهنئة
-        hideErrorMessage('age-error'); // إخفاء رسالة الخطأ إذا كانت ظاهرة
-        showSection('message-section');
-    } else {
-        // العمر خاطئ: أظهِر رسالة الخطأ
-        showErrorMessage('age-error', 'هذا ليس العمر الصحيح. حاولي التفكير مرة أخرى!');
-        ageInput.value = ''; // مسح الحقل ليحاول المستخدم مرة أخرى
-    }
+// دالة إظهار صندوق الهدية والرسالة
+function showMessageBox() {
+    messageBox.classList.remove('hidden');
+    // لا نحتاج لتأخير هنا لأن أنيميشن الصندوق نفسه له تأخير في CSS
 }
 
-// عند تحميل الصفحة بالكامل، أظهر القسم الأولي بانتقال
+// دالة بدء تأثير القلوب
+function startHearts() {
+    const numberOfHearts = 50; // عدد القلوب المطلوب
+    const duration = 6000; // مدة أنيميشن القلب الواحد بالمللي ثانية (6 ثواني)
+
+    for (let i = 0; i < numberOfHearts; i++) {
+        let heart = document.createElement('div');
+        heart.classList.add('heart');
+
+        // تحديد موقع عشوائي أفقي
+        heart.style.left = Math.random() * 100 + "vw";
+        // تحديد حجم عشوائي بسيط
+        const size = Math.random() * 15 + 15; // حجم بين 15 و 30 بكسل
+        heart.style.width = size + "px";
+        heart.style.height = size + "px";
+        heart.style.backgroundColor = `hsl(${Math.random() * 30 + 330}, 70%, 70%)`; // ألوان وردي/أحمر متنوعة قليلاً
+
+        // تعديل مواضع before/after بناءً على الحجم الجديد
+         heart.style.setProperty('--pseudo-element-size', `${size}px`);
+         heart.style.setProperty('--pseudo-element-half-size', `${size / 2}px`);
+
+
+        // تحديد مدة أنيميشن عشوائية وتأخير بسيط للبدء
+        heart.style.animationDuration = (Math.random() * 4 + 4) + "s"; // مدة بين 4 و 8 ثواني
+        heart.style.animationDelay = (Math.random() * 3) + "s"; // تأخير بدء بين 0 و 3 ثواني
+
+        heartsContainer.appendChild(heart);
+
+        // إزالة القلب بعد انتهاء أنيميشنه لتجنب تراكم العناصر
+        heart.addEventListener('animationend', () => {
+            heart.remove();
+        });
+    }
+     // استدعاء الدالة مرة أخرى لإنشاء دفعة جديدة من القلوب بعد فترة
+     setTimeout(startHearts, numberOfHearts * duration / (numberOfHearts/4) ); // تطلق دفعة جديدة قبل انتهاء كل القلوب
+}
+
+
+// إضافة معالجات الأحداث
+openGiftButton.addEventListener('click', showPasswordSection);
+
+// إضافة إمكانية الضغط على Enter في حقل كلمة السر لتأكيد الإدخال
+passwordInput.addEventListener('keypress', function(event) {
+    if (event.key === 'Enter') {
+        event.preventDefault(); // منع الإجراء الافتراضي (مثل إرسال نموذج)
+        checkPassword();
+    }
+});
+
+
+// عند تحميل الصفحة بالكامل، تأكد من إخفاء الأقسام وابدأ أنيميشن الحاوية
 document.addEventListener('DOMContentLoaded', () => {
-    showSection('intro-screen');
-    // رسائل الخطأ مخفية مبدئياً بواسطة CSS باستخدام الكلاس 'error-message'
-    // لا نحتاج لإخفائها هنا بالـ JS إلا إذا أردنا إخفاء كلاس 'visible' المضاف
+    passwordSection.classList.add('hidden');
+    messageBox.classList.add('hidden');
+    // رسائل الخطأ مخفية مبدئياً بواسطة CSS
 });
