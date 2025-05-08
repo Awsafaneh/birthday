@@ -1,55 +1,34 @@
 <!DOCTYPE html>
-<html lang="ar" dir="rtl">
+<html lang="ar">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>رسالة خاصة جداً</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700&family=Lateef&display=swap" rel="stylesheet">
+    <title>مفاجأة!</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-
-    <div class="background-effect"></div> <div class="container">
-        <div id="intro-screen" class="section">
-            <h1>هناك شيء مميز بانتظارك...</h1>
-            <p>هل أنتِ مستعدة لخوض تحدٍ صغير للكشف عن رسالة مخفية؟</p>
-            <button class="cta-button" data-target="password-section">ابدئي التحدي الآن</button>
-        </div>
-
-        <div id="password-section" class="section hidden">
-            <h2>الخطوة ١: أدخلي المفتاح السري 🔑</h2>
-            <p>بدون المفتاح الصحيح، لن تتمكني من التقدم.</p>
-            <input type="password" id="password-input" placeholder="المفتاح هنا...">
-            <button class="cta-button" onclick="checkPassword()">فك القفل</button>
+    <div class="container">
+        <section id="password-section" class="active">
+            <h1>أدخل كلمة المرور</h1>
+            <input type="password" id="password-input" placeholder="كلمة المرور">
+            <button onclick="checkPassword()">دخول</button>
             <p id="password-error" class="error-message"></p>
-        </div>
+        </section>
 
-        <div id="age-section" class="section hidden">
-            <h2>الخطوة ٢: ما هو الرقم السحري؟ 🤔</h2>
-            <p>هناك رقم خاص مرتبط بالرسالة... هل تعرفينه؟</p>
-            <input type="number" id="age-input" placeholder="الرقم السحري...">
-            <button class="cta-button" onclick="checkAge()">كشف الرقم</button>
+        <section id="age-section">
+            <h1>كم عمري اليوم؟</h1>
+            <input type="number" id="age-input" placeholder="العمر">
+            <button onclick="checkAge()">تحقق</button>
             <p id="age-error" class="error-message"></p>
-        </div>
+        </section>
 
-        <div id="message-section" class="section hidden">
-            <div class="celebration-animation"></div> <h2>✨ لقد نجحتِ! هذه رسالتكِ ✨</h2>
-            <p class="final-message-text">
-                يا أجمل وأغلى أم في الدنيا، "الاء نوفل" ❤️<br><br>
-                اليوم هو يوم مميز جداً، يوم يحتفل بقدومكِ إلى عالمنا.<br>
-                كل عام وأنتِ منبع الحنان والسعادة والنور في حياتنا.<br>
-                شكراً لكل ابتسامة، لكل دعاء، لكل لحظة قضيتيها من أجلنا.<br><br>
-                **عيد ميلاد سعيد يا أمي الغالية! 🎂**<br>
-                تاريخ مميز: ٩ / ٥ / ١٩٨٧
-            </p>
-            <p class="signature">مع كل الحب والامتنان من أبنائك</p>
-        </div>
+        <section id="greeting-section">
+            <h1 id="greeting-title"></h1>
+            <p id="greeting-message"></p>
+            <p id="birthdate-message"></p>
+            <!-- يمكنك إضافة المزيد من عناصر التصميم والرسوم المتحركة هنا -->
+        </section>
     </div>
-
-     <div class="overlay-effects" id="overlay-effects"></div>
-
 
     <script src="script.js"></script>
 </body>
