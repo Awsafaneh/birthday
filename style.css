@@ -1,226 +1,278 @@
 body {
-    font-family: 'Cairo', sans-serif; /* استخدام الخط الجديد */
-    background: linear-gradient(to bottom right, #ffdde1, #ee9ca7); /* خلفية متدرجة جديدة */
+    font-family: 'Cairo', sans-serif;
+    background: linear-gradient(135deg, #fbc2eb 0%, #a6c1ee 100%); /* تدرج لوني هادئ ومميز */
     display: flex;
     justify-content: center;
     align-items: center;
     min-height: 100vh;
     margin: 0;
     direction: rtl;
-    overflow-x: hidden; /* منع ظهور شريط التمرير الأفقي */
-    padding: 20px; /* إضافة بادينغ للbody للشاشات الصغيرة جداً */
-    box-sizing: border-box; /* لضمان أن البادينغ لا يؤثر على عرض الbody */
+    overflow: hidden; /* إخفاء أي محتوى يتجاوز الشاشة */
+    padding: 20px;
+    box-sizing: border-box;
+    position: relative; /* للسماح بوضع العناصر المطلقة بداخله إذا لزم الأمر */
 }
 
 .container {
-    background-color: rgba(255, 255, 255, 0.95); /* خلفية بيضاء شبه شفافة أكثر */
-    padding: 40px; /* زيادة البادينغ */
-    border-radius: 15px; /* زيادة تدوير الحواف */
-    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3); /* ظل أكثر وضوحاً */
+    background-color: rgba(255, 255, 255, 0.98); /* خلفية بيضاء شبه شفافة جداً */
+    padding: 40px;
+    border-radius: 20px; /* حواف دائرية أكبر */
+    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.25); /* ظل احترافي وعميق */
     text-align: center;
-    max-width: 550px; /* زيادة أقصى عرض */
-    width: 100%; /* استخدام 100% من العرض المتاح داخل البادينغ */
-    position: relative; /* للمساعدة في التمركز إذا لزم الأمر */
-    overflow: hidden; /* لإخفاء أي عناصر تخرج عن حدود الحاوية أثناء الانتقال */
-    transform: translateY(20px); /* تأثير بداية بسيط */
-    opacity: 0;
-    animation: fadeInContainer 1s ease-out forwards; /* أنيميشن ظهور للحاوية عند تحميل الصفحة */
-    min-height: 300px; /* تحديد ارتفاع أدنى للحاوية لتجنب التقلص الشديد */
-    display: flex; /* استخدام Flexbox لتوسيط المحتوى الرئيسي */
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
+    max-width: 600px; /* زيادة أقصى عرض */
+    width: 100%;
+    box-sizing: border-box;
+    opacity: 0; /* إخفاء مبدئي للحاوية */
+    transform: translateY(30px); /* تأثير بداية للحاوية */
+    animation: containerEnter 1s ease-out forwards; /* أنيميشن ظهور الحاوية */
+    position: relative; /* للسماح بوضع الأقسام بداخله */
+    z-index: 2; /* للتأكد من ظهور المحتوى فوق القلوب */
 }
 
-@keyframes fadeInContainer {
+@keyframes containerEnter {
     to {
-        transform: translateY(0);
         opacity: 1;
+        transform: translateY(0);
     }
 }
 
-
-h1, h2 {
-    color: #c71585; /* لون وردي غامق للعناوين */
-    margin-bottom: 20px;
-    font-weight: 700; /* خط سميك */
+/* تنسيق الأقسام الداخلية */
+.section {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    /* لا نستخدم position: absolute هنا للحفاظ على بساطة التدفق */
 }
 
-h1 {
-    font-size: 2.2rem;
+.section.hidden {
+    display: none; /* إخفاء بسيط */
 }
+
 
 h2 {
-    font-size: 1.8rem;
+    color: #8e44ad; /* لون بنفسجي للعناوين */
+    margin-bottom: 25px;
+    font-size: 1.9rem;
+    font-weight: 700;
+    text-shadow: 1px 1px 2px rgba(0,0,0,0.1); /* ظل خفيف للنص */
 }
 
 p {
-    color: #555; /* لون رمادي أغمق للنصوص */
-    line-height: 1.8; /* زيادة تباعد الأسطر */
-    margin-bottom: 20px; /* زيادة المسافة */
-    font-size: 1.1rem;
-}
-
-input[type="password"],
-input[type="number"] {
-    width: calc(100% - 24px); /* العرض مع الأخذ في الاعتبار البادينغ والبوردر */
-    padding: 12px; /* زيادة البادينغ */
+    color: #555;
+    line-height: 1.8;
     margin-bottom: 20px;
-    border: 1px solid #ddd;
-    border-radius: 8px; /* زيادة تدوير الحواف */
-    font-size: 1.1rem;
-    text-align: center;
-    transition: border-color 0.3s ease, box-shadow 0.3s ease; /* تأثير عند التركيز */
-    box-sizing: border-box; /* لضمان أن البادينغ لا يؤثر على العرض */
+    font-size: 1.15rem;
 }
-
-input[type="password"]:focus,
-input[type="number"]:focus {
-    border-color: #c71585;
-    box-shadow: 0 0 8px rgba(199, 21, 133, 0.3);
-    outline: none; /* إزالة الإطار الأزرق الافتراضي عند التركيز */
-}
-
-button {
-    background-color: #ff69b4; /* لون وردي فاتح للأزرار */
-    color: white;
-    padding: 12px 25px; /* زيادة البادينغ */
-    border: none;
-    border-radius: 8px; /* زيادة تدوير الحواف */
-    cursor: pointer;
-    font-size: 1.1rem;
-    font-weight: 700;
-    transition: background-color 0.3s ease, transform 0.1s ease, box-shadow 0.3s ease; /* تأثير عند التمرير والضغط */
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); /* ظل للأزرار */
-}
-
-button:hover {
-    background-color: #ff1493; /* لون وردي أغمق عند التمرير */
-    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
-}
-
-button:active {
-    transform: scale(0.98); /* تأثير ضغط بسيط */
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
-}
-
 
 .error-message {
-    color: #dc3545; /* لون أحمر للأخطاء */
+    color: #e74c3c; /* لون أحمر داكن للأخطاء */
     font-size: 1rem;
-    margin-top: -10px;
+    margin-top: -15px;
     margin-bottom: 20px;
     font-weight: bold;
-    min-height: 1.2rem; /* حجز مساحة للرسالة حتى لا يتغير تصميم الصفحة عند ظهورها */
-    opacity: 0; /* إخفاء مبدئي بواسطة CSS */
-    transition: opacity 0.3s ease-in-out; /* انتقال لظهور رسالة الخطأ */
+    min-height: 1.2rem; /* حجز مساحة */
+    opacity: 0; /* إخفاء مبدئي بالشفافية */
+    transition: opacity 0.4s ease-in-out; /* انتقال لظهور رسالة الخطأ */
 }
 
 .error-message.visible {
     opacity: 1; /* لإظهار رسالة الخطأ */
 }
 
-.birthday-message {
-    font-size: 1.3rem;
-    color: #c71585; /* لون مميز لرسالة التهنئة */
+
+/* تنسيق الأزرار */
+.cta-button {
+    background: linear-gradient(45deg, #ff6b6b, #ffa07a); /* تدرج لوني للأزرار */
+    color: white;
+    padding: 14px 35px;
+    border: none;
+    border-radius: 30px; /* حواف دائرية جداً */
+    font-size: 1.2rem;
     font-weight: 700;
-    margin-top: 30px;
-    margin-bottom: 30px;
+    cursor: pointer;
+    transition: all 0.3s ease; /* انتقال سلس لكل الخصائص */
+    box-shadow: 0 8px 15px rgba(0,0,0,0.2);
+    margin-top: 15px;
+    letter-spacing: 0.5px; /* مسافة بين الأحرف */
 }
 
-.birthday-image {
-    max-width: 180px; /* حجم مناسب للصورة */
-    height: auto; /* للحفاظ على نسبة الأبعاد */
-    margin-bottom: 20px;
+.cta-button:hover {
+    background: linear-gradient(45deg, #ffa07a, #ff6b6b);
+    box-shadow: 0 12px 20px rgba(0,0,0,0.3);
+    transform: translateY(-3px); /* تأثير ارتفاع بسيط */
+}
+
+.cta-button:active {
+    transform: translateY(1px); /* تأثير ضغط بسيط */
+    box-shadow: 0 5px 10px rgba(0,0,0,0.2);
+}
+
+.share-button {
+     margin-top: 30px;
+     background: linear-gradient(45deg, #a6c1ee, #fbc2eb); /* لون مختلف لزر المشاركة */
+}
+.share-button:hover {
+     background: linear-gradient(45deg, #fbc2eb, #a6c1ee);
+}
+
+
+/* تنسيق حقل الإدخال */
+input[type="password"],
+input[type="number"] {
+    width: calc(100% - 30px); /* عرض مع بادينغ */
+    padding: 15px;
+    font-size: 1.1rem;
+    border: 2px solid #ddd;
     border-radius: 10px;
-    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
-    transition: transform 0.5s ease-in-out; /* تأثير بسيط للصورة */
+    margin: 10px 0;
+    text-align: center;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+    box-sizing: border-box;
+    outline: none; /* إزالة الإطار الأزرق */
 }
 
-/* تنسيقات خاصة للانتقالات بين الأقسام */
-.section {
-    width: 100%;
-    opacity: 1;
-    transition: opacity 0.7s ease-in-out; /* زيادة مدة الانتقال قليلاً */
-    position: absolute; /* وضع الأقسام فوق بعضها داخل الcontainer */
+input[type="password"]:focus,
+input[type="number"]:focus {
+    border-color: #8e44ad;
+    box-shadow: 0 0 10px rgba(142, 68, 173, 0.3);
+}
+
+
+/* تنسيق صندوق الهدية والرسالة النهائية */
+.gift-box-graphic {
+    width: 150px;
+    height: 150px;
+     /* استخدام صورة هدية احترافية أو تصميم بسيط بالـ CSS */
+    background: url('https://i.imgur.com/w1URjVP.png') no-repeat center center; /* يمكن استبدال الرابط بصورة أفضل أو برسم CSS */
+    background-size: contain; /* احتواء الصورة داخل العنصر */
+    margin: 20px auto 30px auto; /* مسافات حول الصندوق */
+    /* إزالة أنيميشن pop إذا كان سيتم التحكم بظهوره بالـ JS */
+    opacity: 0; /* إخفاء مبدئي للصورة */
+    transform: scale(0.5); /* حجم أصغر مبدئياً */
+    animation: popInGift 0.8s ease-out forwards; /* أنيميشن ظهور للصندوق */
+    animation-delay: 0.5s; /* تأخير بسيط بعد ظهور القسم */
+}
+
+@keyframes popInGift {
+     to {
+        opacity: 1;
+        transform: scale(1);
+     }
+}
+
+
+.message .main-message {
+    font-family: 'Lateef', cursive; /* خط جميل للرسالة الرئيسية */
+    font-size: 2rem; /* حجم أكبر */
+    color: #c71585; /* لون وردي مميز */
+    margin-bottom: 15px;
+    line-height: 1.5;
+    text-shadow: 1px 1px 3px rgba(0,0,0,0.1);
+}
+
+.message .details {
+    font-size: 1.2rem;
+    color: #6a0dad; /* لون بنفسجي */
+    margin-top: 10px;
+    line-height: 1.6;
+}
+
+
+/* تنسيق تأثير القلوب */
+.hearts-container {
+    position: absolute;
     top: 0;
     left: 0;
-    right: 0;
-    bottom: 0;
-    padding: inherit; /* استخدام نفس البادينغ للحاوية */
-    display: flex; /* استخدام فليكس بوكس لتوسيط المحتوى */
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    /* إضافة تأثير بسيط عند ظهور القسم */
-    transform: scale(1);
-    transition: opacity 0.7s ease-in-out, transform 0.7s ease-in-out;
+    width: 100%;
+    height: 100%;
+    pointer-events: none; /* لجعل القلوب لا تعيق التفاعل مع الأزرار */
+    overflow: hidden;
+    z-index: 1; /* لتبقى خلف المحتوى الرئيسي */
 }
 
-.section.hidden {
-    opacity: 0;
-    pointer-events: none; /* منع التفاعل مع العناصر المخفية تماماً */
-     /* إضافة تأثير بسيط عند إخفاء القسم */
-    transform: scale(0.95);
+.heart {
+    position: absolute;
+    width: 20px;
+    height: 20px;
+    background-color: #ff6b6b; /* لون القلوب */
+    transform: rotate(45deg);
+    animation: floatHearts 5s linear infinite;
+    bottom: -50px; /* تبدأ من أسفل الشاشة */
+    opacity: 0.8;
 }
 
-/* التأكد من أن القسم المرئي هو فقط الذي يظهر بشكل طبيعي */
-#intro-screen:not(.hidden),
-#password-section:not(.hidden),
-#age-section:not(.hidden),
-#message-section:not(.hidden) {
-     position: static; /* إعادة الوضع إلى طبيعته ليأخذ مساحته */
-     transform: scale(1); /* التأكد من أنه بالحجم الطبيعي */
+.heart::before, .heart::after {
+    content: "";
+    position: absolute;
+    width: 20px;
+    height: 20px;
+    background-color: #ff6b6b;
+    border-radius: 50%;
 }
 
+.heart::before {
+    top: -10px;
+    left: 0;
+}
+
+.heart::after {
+    left: -10px;
+    top: 0;
+}
+
+@keyframes floatHearts {
+    0% {
+        transform: translateY(0) rotate(45deg) scale(1);
+        opacity: 0.8;
+    }
+    50% {
+         opacity: 0.5; /* شفافية تتغير أثناء الحركة */
+    }
+    100% {
+        transform: translateY(-1000px) rotate(45deg) scale(1.2); /* ترتفع وتكبر قليلاً */
+        opacity: 0;
+    }
+}
 
 /* تنسيق للشاشات الصغيرة */
 @media (max-width: 600px) {
-     body {
-        padding: 10px;
-    }
     .container {
-        padding: 20px;
-        border-radius: 10px;
-        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
-         min-height: 250px;
-    }
-    h1 {
-        font-size: 1.6rem;
+        padding: 25px;
+        border-radius: 15px;
     }
     h2 {
-        font-size: 1.3rem;
+        font-size: 1.5rem;
+        margin-bottom: 20px;
     }
     p {
         font-size: 1rem;
         margin-bottom: 15px;
     }
-    input[type="password"],
-    input[type="number"] {
-        padding: 10px;
-        font-size: 1rem;
-        margin-bottom: 15px;
+    .cta-button {
+        padding: 12px 25px;
+        font-size: 1.1rem;
     }
-    button {
-        font-size: 1rem;
-        padding: 10px 20px;
+     input[type="password"],
+     input[type="number"] {
+         padding: 12px;
+         font-size: 1rem;
+     }
+    .gift-box-graphic {
+        width: 120px;
+        height: 120px;
+        margin: 15px auto 20px auto;
+    }
+    .message .main-message {
+        font-size: 1.5rem;
+        margin-bottom: 10px;
+    }
+    .message .details {
+        font-size: 1.1rem;
     }
      .error-message {
         font-size: 0.9rem;
         margin-bottom: 15px;
-     }
-    .birthday-message {
-        font-size: 1.1rem;
-        margin-top: 20px;
-        margin-bottom: 20px;
-    }
-    .birthday-image {
-        max-width: 120px;
-        margin-bottom: 15px;
-    }
-
-     /* تعديل موضع الأقسام المخفية في الشاشات الصغيرة إذا لزم الأمر */
-     .section.hidden {
-        padding: 20px; /* استخدام نفس بادينغ الحاوية للشاشات الصغيرة */
      }
 }
