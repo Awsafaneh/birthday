@@ -1,0 +1,104 @@
+body {
+    font-family: 'Arial', sans-serif; /* نوع خط بسيط واحترافي */
+    background: linear-gradient(to right, #ff99cc, #cc99ff); /* خلفية متدرجة بألوان هادئة */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    margin: 0;
+    direction: rtl; /* التأكد من اتجاه النص لليمين لليسار */
+}
+
+.container {
+    background-color: rgba(255, 255, 255, 0.9); /* خلفية بيضاء شبه شفافة للحاوية */
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* ظل لطيف للحاوية */
+    text-align: center;
+    max-width: 500px; /* تحديد أقصى عرض للحاوية */
+    width: 90%; /* جعل العرض متجاوباً */
+}
+
+h1, h2 {
+    color: #6a0dad; /* لون بنفسجي للعناوين */
+    margin-bottom: 20px;
+}
+
+p {
+    color: #333; /* لون غامق للنصوص العادية */
+    line-height: 1.6;
+    margin-bottom: 15px;
+}
+
+input[type="password"],
+input[type="number"] {
+    width: calc(100% - 22px); /* العرض مع الأخذ في الاعتبار ال padding وال border */
+    padding: 10px;
+    margin-bottom: 15px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 1rem;
+    text-align: center; /* محاذاة النص في المنتصف */
+}
+
+button {
+    background-color: #6a0dad; /* لون بنفسجي للأزرار */
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 1rem;
+    transition: background-color 0.3s ease; /* تأثير عند تمرير الفأرة */
+}
+
+button:hover {
+    background-color: #4b0082; /* لون بنفسجي أغمق عند التمرير */
+}
+
+.error-message {
+    color: #dc3545; /* لون أحمر للأخطاء */
+    font-size: 0.9rem;
+    margin-top: -10px; /* تقليل المسافة بين الرسالة وعنصر الإدخال */
+    margin-bottom: 15px;
+    font-weight: bold;
+}
+
+.birthday-message {
+    font-size: 1.2rem;
+    color: #6a0dad; /* لون مميز لرسالة التهنئة */
+    font-weight: bold;
+}
+
+.birthday-image {
+    max-width: 150px; /* حجم مناسب للصورة */
+    margin-bottom: 20px;
+    border-radius: 5px; /* حواف دائرية للصورة */
+}
+
+/* إخفاء العناصر مبدئياً - يتم التحكم بها بال JS */
+#password-section,
+#age-section,
+#message-section {
+    /* display: none;  تم وضعه في HTML لتجنب وميض عند التحميل */
+}
+
+/* تنسيق للشاشات الصغيرة */
+@media (max-width: 600px) {
+    .container {
+        padding: 20px;
+    }
+    h1 {
+        font-size: 1.5rem;
+    }
+    h2 {
+        font-size: 1.2rem;
+    }
+    button {
+        font-size: 0.9rem;
+        padding: 8px 15px;
+    }
+    .birthday-message {
+        font-size: 1rem;
+    }
+}
