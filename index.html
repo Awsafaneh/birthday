@@ -3,44 +3,38 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>عيد ميلاد سعيد يا أغلى أم</title>
+    <title>هدية خاصة جداً ❤️</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700&family=Lateef&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
+
     <div class="container">
-        <div id="intro-screen">
-            <h1>مفاجأة عيد ميلاد لأروع أم في العالم!</h1>
-            <p>هذه رحلة صغيرة تكريماً ليومك المميز يا أمي.</p>
-            <button onclick="startJourney()">ابدئي الرحلة</button>
+        <button class="cta-button" id="open-gift-button">
+            اضغط هنا لفتح الهدية السحرية ✨
+        </button>
+
+        <div id="password-section" class="section hidden">
+            <h2>هيا بنا! أدخلي كلمة السر لفتح الباب 🔐</h2>
+            <input type="password" id="password-input" placeholder="كلمة السر هنا...">
+            <button class="cta-button" onclick="checkPassword()">تأكيد</button>
+            <p id="password-error" class="error-message"></p>
         </div>
 
-        <div id="password-section" style="display: none;">
-            <h2>الخطوة الأولى: مفتاح الدخول</h2>
-            <p>أدخلي كلمة السر الخاصة التي تعرفينها جيداً:</p>
-            <input type="password" id="password-input" placeholder="أدخلي كلمة السر هنا">
-            <button onclick="checkPassword()">دخول</button>
-            <p id="password-error" class="error-message" style="display: none;"></p>
-        </div>
-
-        <div id="age-section" style="display: none;">
-            <h2>الخطوة الثانية: سؤال عن العمر</h2>
-            <p>كم أصبح عمر السيدة "الاء نوفل" الرائعة اليوم؟</p>
-            <input type="number" id="age-input" placeholder="أدخلي العمر هنا">
-            <button onclick="checkAge()">تحقق</button>
-            <p id="age-error" class="error-message" style="display: none;"></p>
-        </div>
-
-        <div id="message-section" style="display: none;">
-            <img src="birthday-cake.png" alt="كيكة عيد ميلاد" class="birthday-image"> <h2>يا أجمل "الاء نوفل" في الوجود!</h2>
-            <p class="birthday-message">
-                كل عام وأنتِ بألف ألف خير يا أمي الغالية.<br>
-                عيد ميلاد سعيد وسنوات قادمة مليئة بالفرح والسعادة والبركات.<br>
-                شكراً لوجودك في حياتنا، أنتِ النور والدفء والأمان.<br>
-                نحبك أكثر مما تتصور الكلمات!
-            </p>
-            <p>مع كل الحب من أبنائك</p>
+        <div id="message-box" class="section hidden">
+            <div class="gift-box-graphic"></div> <div class="message">
+                <p class="main-message">كل عام وأنتِ بألف ألف خير يا أمي الغالية ❤️</p>
+                <p class="details">
+                    أجمل "الاء نوفل" في الوجود 💖<br>
+                    عيد ميلاد سعيد 🎂 9/5/1987
+                </p>
+                 </div>
         </div>
     </div>
+
+     <div class="hearts-container" id="hearts-container"></div>
 
     <script src="script.js"></script>
 </body>
