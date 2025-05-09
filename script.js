@@ -67,7 +67,7 @@ document.addEventListener('DOMContentLoaded', () => {
             showGreeting();
             showSection(greetingSection);
         } else {
-            triggerInputErrorAnimation(ageInput, ageError, `ليس هذا هو عمري :) حاولي مرة أخرى!`);
+            triggerInputErrorAnimation(ageInput, ageError, `ليس هذا هو عمرك :) حاولي مرة أخرى!`);
         }
     }
 
