@@ -17,7 +17,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const birthdateMessage = document.getElementById('birthdate-message');
 
     const CORRECT_PASSWORD = "1987";
-    const CORRECT_AGE = 37;
+    const CORRECT_AGE = 38;
     const MOTHER_NAME = "آلاء نوفل";
     const BIRTH_DATE = "9/5/1987";
 
